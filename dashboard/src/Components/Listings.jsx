@@ -6,11 +6,8 @@ import Divider from '@material-ui/core/Divider'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
-import Badge from '@material-ui/core/Badge'
-import MailIcon from '@material-ui/icons/Mail'
-import ScreenDialog from './ScreenDialog'
 import Api from '../helpers/api'
 
 const useStyles = makeStyles(theme => ({
@@ -29,14 +26,6 @@ const Listings = () => {
   const [securityScan, setScans] = useState([])
   const [open, setOpen] = React.useState(false)
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   useEffect(() => {
     async function fetchData() {
       const {
@@ -46,6 +35,13 @@ const Listings = () => {
     }
     fetchData()
   }, [])
+
+  const handleDelete = async (id) => {
+    const {
+      data: { data }
+    } = await Api.destroy(`/api/security?id=${id}`)
+    setScans(data)
+  }
 
   return (
     <List className={classes.root}>
@@ -137,24 +133,9 @@ const Listings = () => {
                 </React.Fragment>
               }
             />
-            {scan.findings.length > 0 && (
-              <>
-                <Box m={2}>
-                  <Badge
-                    onClick={handleClickOpen}
-                    badgeContent={scan.findings.length}
-                    color="primary"
-                  >
-                    <MailIcon />
-                  </Badge>
-                </Box>
-                <ScreenDialog
-                  findings={scan.findings}
-                  open={open}
-                  handleClose={handleClose}
-                />
-              </>
-            )}
+            <Button variant="contained" color="secondary" onClick={() => {handleDelete(scan._id)}}>
+              Delete
+            </Button>
           </ListItem>
           <Divider variant="inset" component="li" />
         </div>
