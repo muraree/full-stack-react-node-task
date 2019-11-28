@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Dashboard from '../components/Dashboard'
+import Dashboard from '../Components/Dashboard'
 
 const AppRoutes = () => (
   <Router>
     <Switch>
-    <Route exact path="/" component={Dashboard} />
+      <Route exact path="/" component={Dashboard} />
     </Switch>
   </Router>
 )
