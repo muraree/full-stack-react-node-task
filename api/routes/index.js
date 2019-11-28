@@ -1,7 +1,7 @@
-const securityScanResult = require('./securityScanResult')
+const securityResult = require('./securityResult')
 
 const Routes = router => {
-  securityScanResult(router)
+  securityResult(router)
 }
 
 module.exports = Routes

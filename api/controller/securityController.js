@@ -1,6 +1,6 @@
 const SecurityScan = require('../model/securityScan')
 
-const securityScanController = {
+const securityController = {
   createScanResult: async (req, res) => {
     const resp = {
       message: '',
@@ -39,4 +39,4 @@ const securityScanController = {
   }
 }
 
-module.exports = securityScanController
+module.exports = securityController
